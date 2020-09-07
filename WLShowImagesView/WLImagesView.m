@@ -11,6 +11,9 @@
 #import "WLImageCollectionViewCell.h"
 #import "UIImageView+WebCache.h"
 
+static const CGFloat kMinLineSpacing = 8;
+static const CGFloat kMinInteritemSpacing = 8;
+
 @interface WLImagesView()<UICollectionViewDelegateFlowLayout, UICollectionViewDataSource>
 
 @property (nonatomic, strong)NSArray *images;
@@ -24,8 +27,8 @@
     if ( self = [super init] ) {
         self.backgroundColor = [UIColor whiteColor];
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
-        layout.minimumLineSpacing = 8;
-        layout.minimumInteritemSpacing = 8;
+        layout.minimumLineSpacing = kMinLineSpacing;
+        layout.minimumInteritemSpacing = kMinInteritemSpacing;
         layout.scrollDirection = UICollectionViewScrollDirectionVertical;
         self.collectionView = [[UICollectionView alloc]initWithFrame:CGRectZero collectionViewLayout:layout];
         self.collectionView.delegate = self;
@@ -37,9 +40,9 @@
         
         self.images = images;
         self.CellimageWidth = itemWidth;
-        NSInteger oneLineCount = (viewWidth + 8) / (itemWidth + 8);//每行的图片个数
+        NSInteger oneLineCount = (viewWidth + kMinInteritemSpacing) / (itemWidth + kMinInteritemSpacing);//每行的图片个数
         NSInteger numOfLine = (images.count + oneLineCount - 1) / oneLineCount;//总行数
-        CGFloat viewHeight = numOfLine * (itemWidth + 8) - 8;//总高度
+        CGFloat viewHeight = numOfLine * (itemWidth + kMinLineSpacing) - kMinLineSpacing;//总高度
         self.frame = CGRectMake(0, 0, viewWidth, viewHeight);
         self.collectionView.frame = CGRectMake(0, 0, viewWidth, viewHeight);
         
